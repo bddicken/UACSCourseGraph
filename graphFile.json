@@ -1,0 +1,40 @@
+{
+  "nodes":[
+		{"name":"101", "group":1, "year":"fr", "mdepth":"1"},
+		{"name":"110", "group":1, "year":"fr", "mdepth":"2"},
+		{"name":"120", "group":2, "year":"fr", "mdepth":"3"},
+		{"name":"210", "group":3, "year":"so", "mdepth":"4"},
+		{"name":"245", "group":3, "year":"so", "mdepth":"4"},
+		{"name":"345", "group":4, "year":"jr", "mdepth":"5"},
+		{"name":"445", "group":4, "year":"sr", "mdepth":"6"},
+		{"name":"352", "group":4, "year":"jr", "mdepth":"5"},
+		{"name":"252", "group":4, "year":"so", "mdepth":"6"},
+		{"name":"452", "group":4, "year":"sr", "mdepth":"7"},
+		{"name":"473", "group":4, "year":"sr", "mdepth":"6"},
+		{"name":"453", "group":4, "year":"sr", "mdepth":"7"},
+		{"name":"335", "group":4, "year":"jr", "mdepth":"5"},
+		{"name":"460", "group":4, "year":"sr", "mdepth":"6"},
+		{"name":"444", "group":4, "year":"sr", "mdepth":"6"}
+	],
+	"links":[
+		{"source":0, "target":1, "weight":3},
+		{"source":1, "target":2, "weight":3},
+		{"source":2, "target":3, "weight":3},
+		{"source":2, "target":4, "weight":3},
+		{"source":3, "target":5, "weight":3},
+		{"source":4, "target":5, "weight":3},
+	    {"source":5, "target":6, "weight":3},
+		{"source":5, "target":10, "weight":3},
+		{"source":3, "target":7, "weight":3},
+		{"source":7, "target":8, "weight":3},
+		{"source":8, "target":9, "weight":3},
+		{"source":5, "target":9, "weight":3},
+		{"source":5, "target":11, "weight":3},
+		{"source":8, "target":11, "weight":3},
+		{"source":3, "target":12, "weight":3},
+		{"source":12, "target":13, "weight":3},
+		{"source":5, "target":13, "weight":3},
+		{"source":12, "target":14, "weight":3},
+		{"source":5, "target":14, "weight":3}
+	]
+}
