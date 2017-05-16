@@ -1,8 +1,14 @@
 {
   "nodes":[
-		{"name":"101", "group":1, "year":"fr", "mdepth":"1"},
-		{"name":"110", "group":1, "year":"fr", "mdepth":"2"},
-		{"name":"120", "group":2, "year":"fr", "mdepth":"3"},
+		{"name":"101", "group":1, "year":"fr", "mdepth":"1",
+            "title":"Introduction to computer science",
+            "desc":"This is a very early intro class"},
+		{"name":"110", "group":1, "year":"fr", "mdepth":"2",
+            "title":"Introduction to computer programming I",
+            "desc":"Do some programming!"},
+		{"name":"120", "group":2, "year":"fr", "mdepth":"3",
+            "title":"Introduction to computer programming II",
+            "desc":"Do some more programming!"},
 		{"name":"210", "group":3, "year":"so", "mdepth":"4"},
 		{"name":"245", "group":3, "year":"so", "mdepth":"4"},
 		{"name":"345", "group":4, "year":"jr", "mdepth":"5"},

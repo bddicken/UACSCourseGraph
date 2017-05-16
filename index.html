@@ -37,13 +37,23 @@ body {
    padding:0px;
 }
 
-h3 {
+h2 {
     color: #395180;
     margin:10px;
 }
 
-h4 {
+h3 {
     color: #CC665E;
+    margin:10px;
+}
+
+h4 {
+    color: #395180;
+    margin:10px;
+}
+
+p {
+    color: #333;
     margin:10px;
 }
 
@@ -51,8 +61,15 @@ h4 {
 <body>
 
 <div id="sidebar">
+
+<h2>UA CompSci</h2>
 <h3>Undergrad Course Graph</h3>
-<h4>UA Computer Science</h4>
+
+<hr>
+
+<h4 id="course-title"></h4>
+<p id="course-desc"></p>
+
 </div>
 
 <script>
@@ -128,7 +145,12 @@ d3.json("graphFile.json", function(error, graph) {
       .data(graph.nodes)
     .enter().append("g")
       .attr("class", "node")
-      //.style("fill-opacity","0.7")
+      .on("click", function(d){ 
+        d3.select("#course-title")
+            .text(d.title);
+        d3.select("#course-desc")
+            .text(d.desc);
+      })
       .style("fill", function(d) { return d.color == undefined ? "#bbb" : d.color; })
       .call(force.drag);
 
@@ -143,7 +165,6 @@ d3.json("graphFile.json", function(error, graph) {
       .attr("dx", -10)
       .attr("dy", ".35em")
       .attr("fill","#000")
-      .on("click", function(d){ alert(d.name); })
       .text(function(d) { return d.name });
 
 
