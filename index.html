@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
+</head>
 <style>
 
 .node text {
@@ -24,7 +28,7 @@ svg {
 body {
   margin:0px;
   padding:0px;
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 #sidebar {
@@ -43,8 +47,9 @@ h2 {
 }
 
 h3 {
-    color: #CC665E;
+    color: #AB0520;
     margin:10px;
+    text-align: center;
 }
 
 h4 {
@@ -62,7 +67,7 @@ p {
 
 <div id="sidebar">
 
-<h2>UA CompSci</h2>
+<img src="./img/uacs-logo.png" alt="UA CS logo" width="200" style="display:block;margin:auto;margin-top:15px;">
 <h3>Undergrad Course Graph</h3>
 
 <hr>
@@ -200,4 +205,4 @@ d3.json("graphFile.json", function(error, graph) {
 });
 
 </script>
-
+</html>
