@@ -54,12 +54,28 @@ h3 {
 
 h4 {
     color: #395180;
-    margin:10px;
+    margin:15px;
 }
 
 p {
     color: #333;
-    margin:10px;
+    margin-left:15px;
+    margin-bottom:3px;
+    margin-top:3px;
+    text-align: center;
+    font-size:0.85em;
+}
+
+.button {
+    background-color: #AB0520;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin-left:10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
 }
 
 </style>
@@ -71,6 +87,10 @@ p {
 <h3>Undergrad Course Graph</h3>
 
 <hr>
+<p>Color-code by</p>
+<span class="button" id="cmdepth">max depth</span>
+<span class="button" id="cyear">year</span>
+<hr>
 
 <h4 id="course-title"></h4>
 <p id="course-desc"></p>
@@ -78,6 +98,36 @@ p {
 </div>
 
 <script>
+
+var cmdepth = document.getElementById('cmdepth');
+cmdepth.onclick = function() {
+  svg.selectAll(".node")
+      .style("fill", function(d) {
+          console.log('yearsadf');
+          var mul = d.mdepth * 20;
+          return "rgb(" + (mul) +"," + (mul+70) + "," + (mul*3) + ")"
+      });
+};
+
+var cyear = document.getElementById('cyear');
+cyear.onclick = function() {
+  svg.selectAll(".node")
+      .style("fill", function(d) {
+          console.log('year');
+          if (d.year == "fr") {
+              return "#ab1";
+          } else if (d.year == "so") {
+              return "#92d";
+          } else if (d.year == "jr") {
+              return "#e47";
+          } else if (d.year == "sr") {
+              return "#775";
+          }
+          return "#aaa";
+      });
+};
+
+
 
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -115,10 +165,10 @@ svg.append("svg:defs")
         .attr("fill", "#ccc");
 
 var force = d3.layout.force()
-    .gravity(.07)
+    .gravity(.08)
     .friction(0.9)
-    .charge(-300)
-    .linkDistance(100)
+    .charge(-500)
+    .linkDistance(150)
     .size([width, height]);
 
 d3.json("graphFile.json", function(error, graph) {
@@ -164,12 +214,14 @@ d3.json("graphFile.json", function(error, graph) {
       .attr('marker-end', 'url(#arrow)');
 
   node.append("circle")
+      .style("cursor", "pointer")
       .attr("r","24");
 
   node.append("text")
       .attr("dx", -10)
       .attr("dy", ".35em")
       .attr("fill","#000")
+      .style("cursor", "pointer")
       .text(function(d) { return d.name });
 
 
