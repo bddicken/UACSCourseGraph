@@ -107,9 +107,9 @@ var cmdepth = document.getElementById('cmdepth');
 cmdepth.onclick = function() {
   svg.selectAll(".node")
       .style("fill", function(d) {
-          console.log('yearsadf');
-          var mul = d.mdepth * 15;
-          return "rgb(" + 100 +"," + (mul+100) + "," + ((mul*2)+30) + ")"
+          return "rgb(" + (255-(d.mdepth*36)) +
+              "," + (75 + (d.mdepth*20) * (1+d.mdepth%2)) + 
+              "," + (d.mdepth*36) + ")";
       });
 };
 
@@ -117,7 +117,7 @@ var cyear = document.getElementById('cyear');
 cyear.onclick = function() {
   svg.selectAll(".node")
       .style("fill", function(d) {
-          console.log('year');
+          //console.log(d);
           if (d.year == "fr") {
               return "#79c753";
           } else if (d.year == "so") {
@@ -158,11 +158,13 @@ svg.append("svg:defs")
 
 var offset = width / 3;
 var force = d3.layout.force()
-    .gravity(.08)
+    //.gravity(.08)
     .friction(0.9)
-    .charge(-500)
+    //.charge(-500)
+    .charge(-650)
+    //.linkDistance(150)
     .linkDistance(150)
-    .size([width-100, height]);
+    .size([width-offset, height]);
 
 window.addEventListener("resize", function(event) {
     width = window.innerWidth;
@@ -181,7 +183,6 @@ window.addEventListener("resize", function(event) {
 d3.json("graphFile.json", function(error, graph) {
 
     var linkNodes = [];
-
     graph.links.forEach(function(link) {
         linkNodes.push({
             source: graph.nodes[link.source],
@@ -201,7 +202,41 @@ d3.json("graphFile.json", function(error, graph) {
       .attr("class", "link")
       .attr("stroke", "#ccc")
     .style("stroke-width", function(d) { return Math.sqrt(d.weight); });
-    //.style("stroke-width", function(d) { return Math.sqrt(3); });
+
+  var all = [];
+  
+  function reset_all_edges() {
+      var link = svg.selectAll(".link")
+          .attr("stroke", "#ccc");
+  }
+ 
+  function get_all_edges(e,t,indent) {
+      if (e.__data__.target.name == t) {
+          all.push(e);
+          return true;
+      } else {
+          var truthy = false;
+          var i = 0;
+          for (i = 0; i < link[0].length; i++) {
+              if (link[0][i].__data__.source.name == e.__data__.target.name) {
+                  var tres = get_all_edges(link[0][i],t,indent+2);
+                  if (tres) { all.push(link[0][i]); }
+                  truthy = truthy || tres;
+              }
+          }
+          if (truthy) { all.push(e); }
+          return truthy;
+      }
+  }
+
+  function highlight_for_node(d,t) {
+      reset_all_edges();
+      all = [];
+      get_all_edges(link[0][0],t,2);
+      for (i = 0; i < all.length; i++) {
+          if (all[i] != undefined) { all[i].setAttribute("stroke", "red"); }
+      }
+  }
 
   var node = svg.selectAll(".node")
       .data(graph.nodes)
@@ -212,6 +247,7 @@ d3.json("graphFile.json", function(error, graph) {
             .text(d.title);
         d3.select("#course-desc")
             .text(d.desc);
+        highlight_for_node(d, d.name);
       })
       .style("fill", function(d) { return d.color == undefined ? "#bbb" : d.color; })
       .call(force.drag);
@@ -231,7 +267,6 @@ d3.json("graphFile.json", function(error, graph) {
       .style("cursor", "pointer")
       .text(function(d) { return d.name });
 
-
     var linkNode = svg.selectAll(".link-node")
         .data(linkNodes)
         .enter().append("circle")
@@ -239,28 +274,22 @@ d3.json("graphFile.json", function(error, graph) {
         .attr("r", 0)
         .style("fill", "#ccc");
 
-  force.on("tick", function() {
-    /*
-    link.attr("x1", function(d) { return d.source.x; })
+  force.on("tick", function(e) {
+    link
+        .attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
-    */
-    
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("cx", function(d) { return d.x; })
+    node
+        .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-
-    linkNode.attr("cx", function(d) { return d.x = (d.source.x + d.target.x) * 0.5; })
+    linkNode
+        .attr("cx", function(d) { return d.x = (d.source.x + d.target.x) * 0.5; })
         .attr("cy", function(d) { return d.y = (d.source.y + d.target.y) * 0.5; });
-    
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
+    node
+        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
+
 });
 
 </script>
