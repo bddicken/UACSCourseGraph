@@ -63,7 +63,7 @@ p {
     margin-right:15px;
     margin-bottom:3px;
     margin-top:3px;
-    text-align: center;
+    /*text-align: center;*/
     font-size:0.85em;
 }
 
@@ -89,9 +89,11 @@ p {
 <h3>Undergrad Course Graph</h3>
 
 <hr>
-<p>Color-code by</p>
-<span class="button" id="cmdepth">max depth</span>
-<span class="button" id="cyear">year</span>
+<div id="buttons" style="display:block;margin:auto;">
+  <span style="margin:10px">Color-code by</span>
+  <span class="button" id="cmdepth">max depth</span>
+  <span class="button" id="cyear">year</span>
+</div>
 <hr>
 
 <h4 id="course-title"></h4>
@@ -106,8 +108,8 @@ cmdepth.onclick = function() {
   svg.selectAll(".node")
       .style("fill", function(d) {
           console.log('yearsadf');
-          var mul = d.mdepth * 20;
-          return "rgb(" + (mul) +"," + (mul+70) + "," + (mul*3) + ")"
+          var mul = d.mdepth * 15;
+          return "rgb(" + 100 +"," + (mul+100) + "," + ((mul*2)+30) + ")"
       });
 };
 
@@ -117,18 +119,17 @@ cyear.onclick = function() {
       .style("fill", function(d) {
           console.log('year');
           if (d.year == "fr") {
-              return "#ab1";
+              return "#79c753";
           } else if (d.year == "so") {
-              return "#92d";
+              return "#45cec2";
           } else if (d.year == "jr") {
-              return "#e47";
+              return "#f0c419";
           } else if (d.year == "sr") {
-              return "#775";
+              return "#f2552c";
           }
           return "#aaa";
       });
 };
-
 
 
 var width = window.innerWidth;
@@ -140,17 +141,6 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 d3.select("#sidebar")
     .style("height", height + "px");
-
-window.addEventListener("resize", function(event) {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    d3.select("svg")
-        .attr("width", width - sidebar_width)
-        .attr("height", height);
-    d3.select("#sidebar")
-        .style("height", height + "px")
-        .style("color", "green");
-});
 
 
 // add the arrow for later use
@@ -166,12 +156,27 @@ svg.append("svg:defs")
         .attr("d", "M2,2 L2,11 L10,6 L2,2")
         .attr("fill", "#ccc");
 
+var offset = width / 3;
 var force = d3.layout.force()
     .gravity(.08)
     .friction(0.9)
     .charge(-500)
     .linkDistance(150)
-    .size([width, height]);
+    .size([width-100, height]);
+
+window.addEventListener("resize", function(event) {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    d3.select("svg")
+        .attr("width", width - sidebar_width)
+        .attr("height", height);
+    d3.select("#sidebar")
+        .style("height", height + "px")
+        .style("color", "#222");
+    var offset = width / 3;
+    force.size([width-offset, height]);
+    force.start();
+});
 
 d3.json("graphFile.json", function(error, graph) {
 

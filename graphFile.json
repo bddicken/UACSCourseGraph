@@ -31,8 +31,8 @@
             "title":"Principles of Operating Systems",
             "desc":"Concepts of modern operating systems; concurrent processes; process synchronization and communication; resource allocation; kernels; deadlock; memory management; file systems."},
 		{"name":"473", "group":4, "year":"sr", "mdepth":"6",
-            "title":"",
-            "desc":""},
+            "title":"Automata, Grammars, and Languages",
+            "desc":"Introduction to models of computation (finite automata, pushdown automata, Turing machines), representations of languages (regular expressions, context-free grammars), and the basic hierarchy of languages (regular, context-free, decidable, and undecidable languages)."},
 		{"name":"453", "group":4, "year":"sr", "mdepth":"7",
             "title":"Compilers and Systems Software",
             "desc":"Basic concepts of compilation and related systems software. Topics include lexical analysis, parsing, semantic analysis, code generation; assemblers, loaders, linkers; debuggers."},
@@ -43,8 +43,8 @@
             "title":"Database Design",
             "desc":"Functions of a database system. Data modeling and logical database design. Query languages and query optimization. Efficient data storage and access. Database access through standalone and web applications."},
 		{"name":"444", "group":4, "year":"sr", "mdepth":"6",
-            "title":"Automata, Grammars, and Languages",
-            "desc":"Introduction to models of computation (finite automata, pushdown automata, Turing machines), representations of languages (regular expressions, context-free grammars), and the basic hierarchy of languages (regular, context-free, decidable, and undecidable languages)."}
+            "title":"",
+            "desc":""}
 	],
 	"links":[
 		{"source":0, "target":1, "weight":3},
