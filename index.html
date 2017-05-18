@@ -89,10 +89,11 @@ p {
 <h3>Undergrad Course Graph</h3>
 
 <hr>
-<div id="buttons" style="display:block;margin:auto;">
-  <span style="margin:10px">Color-code by</span>
+<div id="buttons" style="display:block;margin:auto;text-align:center;">
+  <div style="margin-bottom:6px;">Color-code by</div>
   <span class="button" id="cmdepth">max depth</span>
   <span class="button" id="cyear">year</span>
+  <span class="button" id="cnone">none</span>
 </div>
 <hr>
 
@@ -102,6 +103,12 @@ p {
 </div>
 
 <script>
+
+var cnone = document.getElementById('cnone');
+cnone.onclick = function() {
+  svg.selectAll(".node")
+      .style("fill", function(d) { return "#bbb"; });
+};
 
 var cmdepth = document.getElementById('cmdepth');
 cmdepth.onclick = function() {
