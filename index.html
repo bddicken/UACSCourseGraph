@@ -244,7 +244,7 @@ d3.json("graphFile.json", function(error, graph) {
       .attr("class", "node")
       .on("click", function(d){ 
         d3.select("#course-title")
-            .text(d.title);
+            .text(d.name + ': ' + d.title);
         d3.select("#course-desc")
             .text(d.desc);
         highlight_for_node(d, d.name);
