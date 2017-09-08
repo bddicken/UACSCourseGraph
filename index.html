@@ -296,8 +296,26 @@ d3.json("graph.json", function(error, graph) {
     .style("cursor", "pointer")
     .on("click", function(d) { node_click(d); })
     .text(function(d) { return d.name });
+ 
+  courses_per_level = {}
+  for (i = 0; i < graph.nodes.length; i++) {
+    ndd = graph.nodes[i].ddepth
+    if (!(ndd in courses_per_level)) { courses_per_level[ndd] = 0; }
+    courses_per_level[ndd] += 1
+  }
 
-  d3cola.on("tick", function () {
+  /* The course_positions map isneeded to position each course vertically */
+  course_positions = {}
+  dd_count = {}
+  for (i = 0; i < graph.nodes.length; i++) {
+    name = graph.nodes[i].name;
+    ndd = graph.nodes[i].ddepth;
+    if (!(ndd in dd_count)) { dd_count[ndd] = 0; }
+    dd_count[ndd] += 1
+    course_positions[name] = dd_count[ndd]/(courses_per_level[ndd]+1);
+  }
+
+  function positionVis () {
 
     /* Help keep nodes in same column from overlapping */
     node.each(function(d) {
@@ -310,19 +328,26 @@ d3.json("graph.json", function(error, graph) {
         });
     });
 
+    var w = (window.innerWidth - sidebar_width) / 8;
+    var h = window.innerHeight;
+
     link
-      .attr("x1", function (d) { return (d.source.ddepth * 100); })
-      .attr("y1", function (d) { return d.source.y; })
-      .attr("x2", function (d) { return (d.target.ddepth * 100); })
-      .attr("y2", function (d) { return d.target.y; });
+      .attr("x1", function (d) { return (d.source.ddepth * w); })
+      .attr("y1", function (d) { return course_positions[d.source.name] * h; })
+      .attr("x2", function (d) { return (d.target.ddepth * w); })
+      .attr("y2", function (d) { return course_positions[d.target.name] * h; });
     node
       .attr("cx", function (d) { return d.x; })
       .attr("cy", function (d) { return d.y; });
     node
       .attr("transform", function(d) {
-          return "translate(" + (d.ddepth * 100) + "," + d.y + ")"; 
+          return "translate(" + (d.ddepth * w) + "," + (course_positions[d.name] * h) + ")"; 
       });
-  });
+  }
+
+  window.onresize = function(event) { positionVis(); };
+
+  d3cola.on("tick", positionVis);
 
 });
 
