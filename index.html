@@ -213,14 +213,14 @@ d3.json("graph.json", function(error, graph) {
     .data(graph.links)
       .enter().append("line")
         .attr("class", "link")
-        .attr("stroke", "#ccc")
+        .attr("stroke", "#00000015")
         .style("stroke-width", 2);
 
   var all = [];
   
   function reset_all_edges() {
     var link = svg.selectAll(".link")
-      .attr("stroke", "#ccc")
+      .attr("stroke", "#00000015")
       .attr("marker-end", "url(#arrow-grey)");
   }
  
