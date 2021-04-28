@@ -118,9 +118,22 @@ var cmdepth = document.getElementById('cmdepth');
   cmdepth.onclick = function() {
     svg.selectAll(".node")
       .style("fill", function(d) {
-        return "rgb(" + (255-(d.mdepth*36)) +
-            "," + (75 + (d.mdepth*20) * (1+d.mdepth%2)) + 
-            "," + (d.mdepth*36) + ")";
+        if (d.mdepth == "1") {
+          return "#79c753";
+        } else if (d.mdepth == "2") {
+          return "#45cec2";
+        } else if (d.mdepth == "3") {
+          return "#ffdd00";
+        } else if (d.mdepth == "4") {
+          return "#ff7755";
+        } else if (d.mdepth == "5") {
+          return "#55aaff";
+        } else if (d.mdepth == "6") {
+          return "#dd2244";
+        } else if (d.mdepth == "7") {
+          return "#5577ee";
+        }
+        return "#aaa";
   });
 };
 
@@ -133,9 +146,9 @@ clevel.onclick = function() {
       } else if (d.level == "200") {
         return "#45cec2";
       } else if (d.level == "300") {
-        return "#f0c419";
+        return "#ffdd00";
       } else if (d.level == "400") {
-        return "#f2552c";
+        return "#ff7755";
       }
       return "#aaa";
     });
@@ -146,17 +159,17 @@ ccategory.onclick = function() {
   svg.selectAll(".node")
     .style("fill", function(d) {
       if (d.category == "premajor") {
-        return "#22ff77";
+        return "#79c753";
       } else if (d.category == "core") {
-        return "#5577ee";
+        return "#45cec2";
       } else if (d.category == "elective") {
-        return "#c0ffee";
+        return "#ffdd00";
       } else if (d.category == "paradigms") {
-        return "#ff7755";
+        return "#dd2244";
       } else if (d.category == "theory") {
-        return "#eeee22";
+        return "#ff7755";
       } else if (d.category == "systems") {
-        return "#ee2222";
+        return "#55aaff";
       }
       return "#aaa";
     });
