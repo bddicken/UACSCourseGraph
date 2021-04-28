@@ -71,13 +71,15 @@ p {
   background-color: #AB0520;
   border: none;
   color: white;
-  padding: 10px 15px;
+  padding: 5px 10px;
+  margin-bottom:10px;
   margin-left:10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   cursor:pointer;
+  width: 35%;
 }
 
 </style>
@@ -91,9 +93,11 @@ p {
 <hr>
 <div id="buttons" style="display:block;margin:auto;text-align:center;">
   <div style="margin-bottom:6px;">Color-code by</div>
-  <span class="button" id="cmdepth">max depth</span>
-  <span class="button" id="cyear">year</span>
-  <span class="button" id="cnone">none</span>
+  <span class="button" id="cmdepth">Sequence Length</span>
+  <span class="button" id="clevel">Course Level</span>
+  <br/>
+  <span class="button" id="ccategory">Category</span>
+  <span class="button" id="cnone">Clear</span>
 </div>
 <hr>
 
@@ -120,18 +124,39 @@ var cmdepth = document.getElementById('cmdepth');
   });
 };
 
-var cyear = document.getElementById('cyear');
-cyear.onclick = function() {
+var clevel = document.getElementById('clevel');
+clevel.onclick = function() {
   svg.selectAll(".node")
     .style("fill", function(d) {
-      if (d.year == "fr") {
+      if (d.level == "100") {
         return "#79c753";
-      } else if (d.year == "so") {
+      } else if (d.level == "200") {
         return "#45cec2";
-      } else if (d.year == "jr") {
+      } else if (d.level == "300") {
         return "#f0c419";
-      } else if (d.year == "sr") {
+      } else if (d.level == "400") {
         return "#f2552c";
+      }
+      return "#aaa";
+    });
+};
+
+var category = document.getElementById('ccategory');
+ccategory.onclick = function() {
+  svg.selectAll(".node")
+    .style("fill", function(d) {
+      if (d.category == "premajor") {
+        return "#22ff77";
+      } else if (d.category == "core") {
+        return "#5577ee";
+      } else if (d.category == "elective") {
+        return "#c0ffee";
+      } else if (d.category == "paradigms") {
+        return "#ff7755";
+      } else if (d.category == "theory") {
+        return "#eeee22";
+      } else if (d.category == "systems") {
+        return "#ee2222";
       }
       return "#aaa";
     });
