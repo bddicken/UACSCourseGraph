@@ -18,17 +18,35 @@
   stroke-width:0px;
 }
 
-svg {
+#course-info {
+  position: fixed;
+  overflow: scroll;
+  height: calc(100% - 350px);
   border-style:solid;
-  border-width:1px;
+  border-width:2px;
   border-color:#ddd;
+  padding:10px;
+  margin:10px;
+  font-size:1.1em;
+}
+
+svg {
   margin:0px;
   padding:0px;
+}
+
+html {
+  margin:0px;
+  padding:0px;
+  height: 100%;
+  overflow: none;
 }
 
 body {
   margin:0px;
   padding:0px;
+  height: 100%;
+  overflow: none;
   font-family: 'Catamaran', sans-serif;
 }
 
@@ -36,8 +54,7 @@ body {
   position:fixed;
   right:0px;
   top:0px;
-  width: 298px;
-  height:300px;
+  width: 400px;
   background-color: #eee;
   padding:0px;
 }
@@ -64,7 +81,7 @@ p {
   margin-right:15px;
   margin-bottom:3px;
   margin-top:3px;
-  font-size:0.85em;
+  font-size:1.1em;
 }
 
 .button {
@@ -77,17 +94,58 @@ p {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 14px;
+  font-size: 1.15em;
   cursor:pointer;
   width: 35%;
+}
+
+.legend {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  border-style:solid;
+  border-width:2px;
+  border-color:#ddd;
+  font-size: 1.1em;  
+  padding: 7px;
+}
+
+hr {
+border-top: 2px solid #ddd ;
 }
 
 </style>
 <body>
 
+<div class="legend" id="legend-level" style="display:none;">
+<div style="color:#79c753">100-level courses</div>
+<div style="color:#45cec2">200-level courses</div>
+<div style="color:#ffdd00">300-level courses</div>
+<div style="color:#ff7755">400-level courses</div>
+</div>
+
+<div class="legend" id="legend-category" style="display:none">
+<div style="color:#79c753">Premajor courses</div>
+<div style="color:#45cec2">Core foundation courses</div>
+<div style="color:#ffdd00">Elective courses</div>
+<div style="color:#ff7755">Theory courses</div>
+<div style="color:#55aaff">Systems courses</div>
+<div style="color:#dd2244">Paradigms courses</div>
+</div>
+
+
+<div class="legend" id="legend-length" style="display:none;">
+<div style="color:#79c753">Prereq path length: 0/1</div>
+<div style="color:#45cec2">Prereq path length: 1</div>
+<div style="color:#ffdd00">Prereq path length: 2</div>
+<div style="color:#ff7755">Prereq path length: 3</div>
+<div style="color:#55aaff">Prereq path length: 4</div>
+<div style="color:#dd2244">Prereq path length: 5</div>
+</div>
+
 <div id="sidebar">
 
-<img src="./img/uacs-logo.png" alt="UA CS logo" width="200" style="display:block;margin:auto;margin-top:15px;">
+<img src="./img/uacs-logo.png" alt="UA CS logo" width="250" style="display:block;margin:auto;margin-top:15px;">
 <h3>Undergrad Course Graph</h3>
 
 <hr>
@@ -101,8 +159,18 @@ p {
 </div>
 <hr>
 
-<h4 id="course-title"></h4>
-<p id="course-desc"></p>
+<div id="course-info">
+  <h4 id="course-title"></h4>
+  <p id="course-desc">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </p>
+</div>
 
 </div>
 
@@ -110,35 +178,44 @@ p {
 
 var cnone = document.getElementById('cnone');
 cnone.onclick = function() {
+  d3.select("#legend-length").style("display", "none");
+  d3.select("#legend-level").style("display", "none");
+  d3.select("#legend-category").style("display", "none");
   svg.selectAll(".node")
     .style("fill", function(d) { return "#bbb"; });
 };
 
 var cmdepth = document.getElementById('cmdepth');
-  cmdepth.onclick = function() {
-    svg.selectAll(".node")
-      .style("fill", function(d) {
-        if (d.mdepth == "1") {
-          return "#79c753";
-        } else if (d.mdepth == "2") {
-          return "#45cec2";
-        } else if (d.mdepth == "3") {
-          return "#ffdd00";
-        } else if (d.mdepth == "4") {
-          return "#ff7755";
-        } else if (d.mdepth == "5") {
-          return "#55aaff";
-        } else if (d.mdepth == "6") {
-          return "#dd2244";
-        } else if (d.mdepth == "7") {
-          return "#5577ee";
-        }
-        return "#aaa";
+cmdepth.onclick = function() {
+  d3.select("#legend-length").style("display", "block");
+  d3.select("#legend-level").style("display", "none");
+  d3.select("#legend-category").style("display", "none");
+  svg.selectAll(".node")
+    .style("fill", function(d) {
+      if (d.mdepth == "1") {
+        return "#79c753";
+      } else if (d.mdepth == "2") {
+        return "#45cec2";
+      } else if (d.mdepth == "3") {
+        return "#ffdd00";
+      } else if (d.mdepth == "4") {
+        return "#ff7755";
+      } else if (d.mdepth == "5") {
+        return "#55aaff";
+      } else if (d.mdepth == "6") {
+        return "#dd2244";
+      } else if (d.mdepth == "7") {
+        return "#5577ee";
+      }
+      return "#aaa";
   });
 };
 
 var clevel = document.getElementById('clevel');
 clevel.onclick = function() {
+  d3.select("#legend-length").style("display", "none");
+  d3.select("#legend-level").style("display", "block");
+  d3.select("#legend-category").style("display", "none");
   svg.selectAll(".node")
     .style("fill", function(d) {
       if (d.level == "100") {
@@ -156,6 +233,9 @@ clevel.onclick = function() {
 
 var category = document.getElementById('ccategory');
 ccategory.onclick = function() {
+  d3.select("#legend-length").style("display", "none");
+  d3.select("#legend-level").style("display", "none");
+  d3.select("#legend-category").style("display", "block");
   svg.selectAll(".node")
     .style("fill", function(d) {
       if (d.category == "premajor") {
@@ -177,7 +257,7 @@ ccategory.onclick = function() {
 
 var width = window.innerWidth;
 var height = window.innerHeight;
-var sidebar_width = 300;
+var sidebar_width = 400;
 
 var svg = d3.select("body").append("svg")
   .attr("width", width - sidebar_width)
@@ -190,7 +270,7 @@ svg.append("svg:defs")
   .append("svg:marker")
     .attr("class", "arrow")
     .attr("id", "arrow-grey")    
-    .attr("refX",22)
+    .attr("refX",27)
     .attr("refY", 6)
     .attr("markerWidth", 53)
     .attr("markerHeight", 53)
@@ -203,7 +283,7 @@ svg.select("defs")
   .append("svg:marker")
     .attr("class", "arrow")
     .attr("id", "arrow-red")    
-    .attr("refX", 22)
+    .attr("refX", 27)
     .attr("refY", 6)
     .attr("markerWidth", 53)
     .attr("markerHeight", 53)
@@ -233,7 +313,7 @@ window.addEventListener("resize", function(event) {
 
 d3.json("graph.json", function(error, graph) {
 
-  var nodeRadius = 5;
+  var nodeRadius = 10;
   graph.nodes.forEach(function (v) { v.height = v.width = 2 * nodeRadius; });
 
   d3cola
@@ -325,10 +405,11 @@ d3.json("graph.json", function(error, graph) {
 
   node.append("circle")
     .style("cursor", "pointer")
-    .attr("r","24");
+    .attr("r","34");
 
   node.append("text")
-    .attr("dx", -10)
+    .attr("font-size", 20)
+    .attr("dx", -12)
     .attr("dy", ".35em")
     .attr("fill","#000")
     .style("cursor", "pointer")
