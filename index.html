@@ -380,6 +380,7 @@ d3.json("graph.json", function(error, graph) {
     reset_all_edges();
     all = [];
     get_all_edges(link._groups[0][0],t,2);
+    get_all_edges(link._groups[0][1],t,2); // HACKY
     for (i = 0; i < all.length; i++) {
       if (all[i] != undefined) {
         all[i].setAttribute("stroke", "#AB0520");

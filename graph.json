@@ -12,10 +12,10 @@
             "category":"premajor",
             "title":"Introduction to Computer Programming II",
             "desc":"Provides a continuing introduction to programming with an emphasis on problem­solving. It considers problems drawn from a variety of domains (including Computer Science) and emphasizes both the broader applicability of the relevant data structures and programming concepts, as well as the implementation of those structures and concepts in software. Topics include arrays, lists, stacks, queues, trees, searching and sorting, and exceptions."},
-		{"name":"245", "group":3, "level":"200", "mdepth":"3", "ddepth":3,
+		{"name":"144", "group":1, "level":"100", "mdepth":"1", "ddepth":1,
             "category":"premajor",
-            "title":"Introduction to Discrete Structures",
-            "desc":"An introduction to mathematical concepts for Computer Science. Topics include first-order logic and logical arguments, proof techniques with an emphasis on mathematical induction, sets, relations and functions, properties of integers, counting methods, probability, and recurrences. Weekly laboratory."},
+            "title":"Discrete Mathematics for Computer Science I",
+            "desc":"The first of a two-course sequence introducing mathematical concepts for Computer Science. Topics include: sets, functions, and relations; propositional and predicate logic; foundational combinatorics; discrete probability; modular arithmetic; and recurrence relations."},
 		{"name":"210", "group":3, "level":"200", "mdepth":"3", "ddepth":3,
             "category":"premajor",
             "title":"Software Development",
@@ -123,14 +123,23 @@
 		{"name":"380", "group":4, "level":"300", "mdepth":"4", "ddepth":4,
             "category":"core",
             "title":"Principles of Data Science",
-            "desc":"The course introduces students to principles of data science that are necessary for computer scientists to make effective decisions in their professional careers. A number of computer science sub-disciplines now rely on data collection and analysis. For example, computer systems are now complicated enough that comparing the execution performance of two different programs becomes a statistical estimation problem rather than a deterministic computation. This course teaches students the basic principles of how to properly collect and process data sources in order to derive appropriate conclusions from them. The course has three main components: data analysis, machine learning, and a project where students apply the concepts discussed in class to a substantial open-ended problem."}
+            "desc":"The course introduces students to principles of data science that are necessary for computer scientists to make effective decisions in their professional careers. A number of computer science sub-disciplines now rely on data collection and analysis. For example, computer systems are now complicated enough that comparing the execution performance of two different programs becomes a statistical estimation problem rather than a deterministic computation. This course teaches students the basic principles of how to properly collect and process data sources in order to derive appropriate conclusions from them. The course has three main components: data analysis, machine learning, and a project where students apply the concepts discussed in class to a substantial open-ended problem."},
+		{"name":"244", "group":3, "level":"200", "mdepth":"3", "ddepth":3,
+            "category":"premajor",
+            "title":"Introduction to Discrete Structures",
+            "desc":"An introduction to mathematical concepts for Computer Science. Topics include first-order logic and logical arguments, proof techniques with an emphasis on mathematical induction, sets, relations and functions, properties of integers, counting methods, probability, and recurrences. Weekly laboratory."},
+		{"name":"480", "group":5, "level":"400", "mdepth":"6", "ddepth":7,
+            "category":"elective",
+            "title":"Unknown title",
+            "desc":"Unknown desc. This coursel also has MATH 313 as a prerequisite."}
 	],
 	"links":[
      {"source":0, "target":1},
+    {"source":3, "target":31},
     {"source":1, "target":2},
-    {"source":2, "target":3},
+    {"source":2, "target":31},
     {"source":2, "target":4},
-    {"source":3, "target":5},
+    {"source":31, "target":5},
     {"source":4, "target":5},
     {"source":5, "target":6},
     {"source":5, "target":10},
@@ -170,7 +179,9 @@
     {"source":12, "target":28},
     {"source":7, "target":29},
     {"source":8, "target":29},
-    {"source":4, "target":30}
+    {"source":4, "target":30},
+    {"source":31, "target":30},
+    {"source":30, "target":32}
 	]
 
 }
