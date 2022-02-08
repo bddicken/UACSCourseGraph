@@ -12,7 +12,7 @@
             "category":"premajor",
             "title":"Introduction to Computer Programming II",
             "desc":"Provides a continuing introduction to programming with an emphasis on problem­solving. It considers problems drawn from a variety of domains (including Computer Science) and emphasizes both the broader applicability of the relevant data structures and programming concepts, as well as the implementation of those structures and concepts in software. Topics include arrays, lists, stacks, queues, trees, searching and sorting, and exceptions."},
-		{"name":"144", "group":1, "level":"100", "mdepth":"1", "ddepth":1,
+		{"name":"144", "group":1, "level":"100", "mdepth":"2", "ddepth":2,
             "category":"premajor",
             "title":"Discrete Mathematics for Computer Science I",
             "desc":"The first of a two-course sequence introducing mathematical concepts for Computer Science. Topics include: sets, functions, and relations; propositional and predicate logic; foundational combinatorics; discrete probability; modular arithmetic; and recurrence relations."},
@@ -128,7 +128,7 @@
             "category":"elective",
             "title":"Cloud Computing",
             "desc":"This course focuses on cloud programming, with an emphasis on using the cloud to solve Big Data problems. The course will not only look at how distributed systems, databases, networks, etc. are used to implement cloud computing platforms and cloud applications, but also the impact of the infinite scalability and pay-as-you-go on the platforms and applications."},
-		{"name":"480", "group":5, "level":"400", "mdepth":"6", "ddepth":7,
+		{"name":"480", "group":5, "level":"400", "mdepth":"5", "ddepth":6,
             "category":"elective",
             "title":"Principles of Machine Learning",
             "desc":"Students will learn why machine learning is a fundamentally different way of writing computer programs from traditional programming, and why this is often an attractive way of solving practical problems. Machine learning is all about automatic ways for computers to collect and/or adapt to data to make better predictions and decisions or gain insight; students will learn both advantages and unique risks that this approach offers. They will learn the fundamental frameworks, computational methods, and algorithms that underlie current machine learning practice, and how to derive and implement many of them. This course also has MATH 313 as a prerequisite."}

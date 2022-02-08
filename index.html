@@ -322,8 +322,8 @@ window.addEventListener("resize", function(event) {
     .style("height", height + "px")
     .style("color", "#222");
   var offset = width / 3;
-  force.size([width-offset, height]);
-  force.start();
+  //force.size([width-offset, height]);
+  //force.start();
 });
 
 d3.json("graph.json", function(error, graph) {
